@@ -1,4 +1,4 @@
-package com.hotel.hotel.review.system;
+package com.hotel.hotel.review;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
