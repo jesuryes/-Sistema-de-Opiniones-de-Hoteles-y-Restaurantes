@@ -47,7 +47,7 @@ services:
     image: mysql:8.0
     container_name: mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: secret123
       MYSQL_DATABASE: authdb
@@ -62,4 +62,3 @@ volumes:
 networks:
   app-network:
     driver: bridge
-
