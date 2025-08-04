@@ -8,7 +8,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String jwtSecret = "mi_clave_secreta_segura";
+    private final String jwtSecret = "mySecretKey123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
     private final long jwtExpirationMs = 86400000; // 24 horas
 
     public String generateToken(String username) {
@@ -16,7 +16,7 @@ public class JwtUtil {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
 

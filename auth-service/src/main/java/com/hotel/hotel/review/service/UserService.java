@@ -6,6 +6,7 @@ import com.hotel.hotel.review.model.User;
 import com.hotel.hotel.review.repository.UserRepository;
 import com.hotel.hotel.review.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +27,7 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
+    @Lazy
     private AuthenticationManager authenticationManager;
 
     public UserService(PasswordEncoder passwordEncoder) {
@@ -50,6 +52,7 @@ public class UserService implements UserDetailsService {
 
         User user = new User();
         user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole("USER");
 
