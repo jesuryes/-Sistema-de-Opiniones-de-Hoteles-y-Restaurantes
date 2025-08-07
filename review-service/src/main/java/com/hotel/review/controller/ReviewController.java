@@ -4,16 +4,23 @@ package com.hotel.review.controller;
 import com.hotel.review.model.Review;
 import com.hotel.review.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/reviews")
+@CrossOrigin(origins = "*")
 public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("Review Service is running!");
+    }
 
     @GetMapping
     public List<Review> getAllReviews() {
@@ -41,17 +48,32 @@ public class ReviewController {
     }
 
     @PostMapping
-    public Review createReview(@RequestBody Review review) {
-        return reviewService.createReview(review);
+    public ResponseEntity<?> createReview(@RequestBody Review review) {
+        try {
+            Review createdReview = reviewService.createReview(review);
+            return ResponseEntity.ok(createdReview);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error creating review: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public Review updateReview(@PathVariable Long id, @RequestBody Review review) {
-        return reviewService.updateReview(id, review);
+    public ResponseEntity<?> updateReview(@PathVariable Long id, @RequestBody Review review) {
+        try {
+            Review updatedReview = reviewService.updateReview(id, review);
+            return ResponseEntity.ok(updatedReview);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error updating review: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteReview(@PathVariable Long id) {
-        reviewService.deleteReview(id);
+    public ResponseEntity<?> deleteReview(@PathVariable Long id) {
+        try {
+            reviewService.deleteReview(id);
+            return ResponseEntity.ok("Review deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error deleting review: " + e.getMessage());
+        }
     }
 }
