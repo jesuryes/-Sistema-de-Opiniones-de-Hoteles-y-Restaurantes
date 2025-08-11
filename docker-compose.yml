@@ -15,19 +15,19 @@ services:
       - app-network
     restart: on-failure
 
-  # place-service:
-  #   build: ./place-service
-  #   container_name: place-service
-  #   ports:
-  #     - "8081:8081"
-  #   depends_on:
-  #     - mysql
-  #   environment:
-  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/placedb
-  #     SPRING_DATASOURCE_USERNAME: root
-  #     SPRING_DATASOURCE_PASSWORD: secret123
-  #   networks:
-  #     - app-network
+  place-service:
+    build: ./place-service
+    container_name: place-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/placedb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: secret123
+    networks:
+      - app-network
   review-service:
     build: ./review-service
     container_name: review-service
