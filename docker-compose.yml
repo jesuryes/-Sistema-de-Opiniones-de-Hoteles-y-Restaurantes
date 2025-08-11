@@ -21,13 +21,15 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/placedb
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/placedb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: secret123
     networks:
       - app-network
+    restart: on-failure
   review-service:
     build: ./review-service
     container_name: review-service
